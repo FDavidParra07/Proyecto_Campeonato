@@ -23,12 +23,6 @@ public class TorneoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Equipo e = new Equipo();
-		e.setNombre("Millos");
-		e.setDescripcion("Ël equipo de bogota");
-
-		equipoRepositorio.save(e);
-
 		List<Equipo> listEquip = equipoRepositorio.findAll();
 		for (Equipo equipo : listEquip){
 			System.out.println(equipo);

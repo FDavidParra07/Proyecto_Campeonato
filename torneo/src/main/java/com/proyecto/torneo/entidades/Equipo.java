@@ -1,15 +1,9 @@
 package com.proyecto.torneo.entidades;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
 
 import java.io.Serializable;
 
@@ -28,7 +22,15 @@ public class Equipo implements Serializable {
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "descripcion", nullable = false)
-    private String descripcion;
+    @Column(name = "tecnico", nullable = false)
+    private String tecnico;
 
+    @Column(name = "uniforme", nullable = false)
+    private String uniforme;
+
+    @Column(name = "direccion", nullable = false)
+    private String direccion;
+
+    @ManyToOne
+    private Estadio estadio;
 }
