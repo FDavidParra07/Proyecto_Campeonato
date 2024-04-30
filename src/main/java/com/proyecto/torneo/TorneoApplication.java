@@ -16,17 +16,13 @@ public class TorneoApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TorneoApplication.class, args);
-
 	}
-	@Autowired
-	EquipoRepositorio equipoRepositorio;
+
+
 	@Override
 	public void run(String... args) throws Exception {
 
-		List<Equipo> listEquip = equipoRepositorio.findAll();
-		for (Equipo equipo : listEquip){
-			System.out.println(equipo);
-		}
+		// Espacio para acciones locales
 
 	}
 }

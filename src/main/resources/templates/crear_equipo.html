@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Equipo</title>
+</head>
+<body>
+<h1>Crear Equipo</h1>
+<!-- Mostrar mensaje de éxito -->
+<div th:if="${mensaje != null}" class="success-message">
+    <p th:text="${mensaje}"></p>
+</div>
+<!-- Mostrar mensaje de error -->
+<div th:if="${error != null}" class="error-message">
+    <p th:text="${error}"></p>
+</div>
+<form action="/equipos/nuevo" method="post">
+    <label for="nombre">Nombre:</label><br>
+    <input type="text" id="nombre" name="nombre" required><br>
+    <label for="tecnico">Técnico:</label><br>
+    <input type="text" id="tecnico" name="tecnico" required><br>
+    <label for="uniforme">Uniforme:</label><br>
+    <input type="text" id="uniforme" name="uniforme" required><br>
+    <label for="direccion">Dirección:</label><br>
+    <input type="text" id="direccion" name="direccion" required><br>
+    <label for="estadio">Estadio:</label><br>
+    <select id="estadio" name="estadio" required>
+        <option value="">Seleccionar Estadio</option>
+        <th:block th:each="estadio : ${estadios}">
+            <option th:value="${estadio}" th:text="${estadio.nombre}"></option>
+        </th:block>
+    </select>
+    <button type="submit">Crear</button>
+</form>
+</body>
+</html>
