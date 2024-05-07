@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping; // Importa esta anotación
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/jugadores")
@@ -21,14 +25,10 @@ public class JugadorControlador {
         this.jugadorServicio = jugadorServicio;
     }
 
-    @PostMapping("/registrar")
-    public ResponseEntity<String> registrarJugador(@RequestBody JugadorDto jugadorDto) {
-        try {
-            jugadorServicio.registrarJugador(jugadorDto);
-            return ResponseEntity.ok("Jugador registrado correctamente.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error al registrar el jugador: " + e.getMessage());
-        }
+    @GetMapping("/")
+    public String obtenerJugadores(Model model) {
+        List<JugadorDto> jugadores = jugadorServicio.obtenerJugadores();
+        model.addAttribute("jugadores", jugadores);
+        return "jugadores";
     }
 }

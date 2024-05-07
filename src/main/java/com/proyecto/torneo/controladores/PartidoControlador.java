@@ -1,6 +1,7 @@
 package com.proyecto.torneo.controladores;
 
 import com.proyecto.torneo.dto.PartidoDto;
+import org.springframework.ui.Model;
 import com.proyecto.torneo.servicios.PartidoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,8 +36,9 @@ public class PartidoControlador {
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<List<PartidoDto>> obtenerPartidos() {
+    public String obtenerPartidos(Model model) {
         List<PartidoDto> partidos = partidoServicio.obtenerPartidos();
-        return ResponseEntity.ok(partidos);
+        model.addAttribute("partidos", partidos);
+        return "partidos";
     }
 }
