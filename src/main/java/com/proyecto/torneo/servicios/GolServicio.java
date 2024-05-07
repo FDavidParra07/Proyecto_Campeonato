@@ -5,17 +5,24 @@ import com.proyecto.torneo.entidades.Gol;
 import com.proyecto.torneo.repositorios.GolRepositorio;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 
+@Service
 public class GolServicio implements Serializable {
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
+    private final GolRepositorio golRepositorio;
 
     @Autowired
-    GolRepositorio golRepositorio;
+    public GolServicio(ModelMapper modelMapper, GolRepositorio golRepositorio) {
+        this.modelMapper = modelMapper;
+        this.golRepositorio = golRepositorio;
+    }
 
     public void registrarGol(GolDto golDto) {
-        golRepositorio.save(modelMapper.map(golDto, Gol.class));
+        Gol gol = modelMapper.map(golDto, Gol.class);
+        golRepositorio.save(gol);
     }
 }

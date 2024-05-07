@@ -6,13 +6,20 @@ import com.proyecto.torneo.repositorios.PartidoRepositorio;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.List;
 
+@Service
 public class PartidoServicio implements Serializable {
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
+
+    @Autowired
+    public PartidoServicio(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
     @Autowired
     PartidoRepositorio partidoRepositorio;
