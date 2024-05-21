@@ -3,32 +3,46 @@ package com.proyecto.torneo.controladores;
 import com.proyecto.torneo.dto.ClasificacionDto;
 import com.proyecto.torneo.servicios.ClasificacionServicio;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
-@RequestMapping("/clasificaciones")
 public class ClasificacionControlador {
 
-    private final ClasificacionServicio clasificacionServicio;
-
     @Autowired
-    public ClasificacionControlador(ClasificacionServicio clasificacionServicio) {
-        this.clasificacionServicio = clasificacionServicio;
+    private ClasificacionServicio clasificacionServicio;
+
+    @GetMapping("/clasificaciones")
+    public String listarClasificaciones(Model model) {
+        List<ClasificacionDto> clasificaciones = clasificacionServicio.obtenerClasificaciones();
+        model.addAttribute("clasificaciones", clasificaciones);
+        return "clasificaciones";
     }
 
-    @PostMapping("/registrar")
-    public ResponseEntity<String> registrarClasificacion(@RequestBody ClasificacionDto clasificacionDto) {
+    @GetMapping("/clasificaciones/nuevo")
+    public String mostrarFormulario(Model model) {
+        ClasificacionDto clasificacionDto = new ClasificacionDto();
+        model.addAttribute("clasificacion", clasificacionDto);
+        return "crear_clasificacion";
+    }
+
+    @PostMapping("/clasificaciones/nuevo")
+    public String registrarClasificacion(@ModelAttribute("clasificacion") ClasificacionDto clasificacionDto, Model model) {
         try {
             clasificacionServicio.registrarClasificacion(clasificacionDto);
-            return ResponseEntity.ok("Clasificación registrada correctamente.");
+            model.addAttribute("mensaje", "Clasificación registrada exitosamente.");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error al registrar la clasificación: " + e.getMessage());
+            model.addAttribute("error", "Error al registrar la clasificación: " + e.getMessage());
         }
+        return "redirect:/clasificaciones";
+    }
+
+    @GetMapping("/clasificaciones/eliminar/{id}")
+    public String eliminarClasificacion(@PathVariable long id, Model model) {
+        clasificacionServicio.eliminarClasificacion(id);
+        return "redirect:/clasificaciones";
     }
 }

@@ -3,32 +3,46 @@ package com.proyecto.torneo.controladores;
 import com.proyecto.torneo.dto.ResultadoDto;
 import com.proyecto.torneo.servicios.ResultadoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
-@RequestMapping("/resultados")
 public class ResultadoControlador {
 
-    private final ResultadoServicio resultadoServicio;
-
     @Autowired
-    public ResultadoControlador(ResultadoServicio resultadoServicio) {
-        this.resultadoServicio = resultadoServicio;
+    private ResultadoServicio resultadoServicio;
+
+    @GetMapping("/resultados")
+    public String listarResultados(Model model) {
+        List<ResultadoDto> resultados = resultadoServicio.obtenerResultados();
+        model.addAttribute("resultados", resultados);
+        return "resultados";
     }
 
-    @PostMapping("/registrar")
-    public ResponseEntity<String> registrarResultado(@RequestBody ResultadoDto resultadoDto) {
+    @GetMapping("/resultados/nuevo")
+    public String mostrarFormulario(Model model) {
+        ResultadoDto resultadoDto = new ResultadoDto();
+        model.addAttribute("resultado", resultadoDto);
+        return "crear_resultado";
+    }
+
+    @PostMapping("/resultados/nuevo")
+    public String registrarResultado(@ModelAttribute("resultado") ResultadoDto resultadoDto, Model model) {
         try {
             resultadoServicio.registrarResultado(resultadoDto);
-            return ResponseEntity.ok("Resultado registrado correctamente.");
+            model.addAttribute("mensaje", "Resultado registrado exitosamente.");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error al registrar el resultado: " + e.getMessage());
+            model.addAttribute("error", "Error al registrar el resultado: " + e.getMessage());
         }
+        return "redirect:/resultados";
+    }
+
+    @GetMapping("/resultados/eliminar/{id}")
+    public String eliminarResultado(@PathVariable long id, Model model) {
+        resultadoServicio.eliminarResultado(id);
+        return "redirect:/resultados";
     }
 }
