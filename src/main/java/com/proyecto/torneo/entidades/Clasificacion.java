@@ -18,8 +18,7 @@ public class Clasificacion implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne
-    private Equipo equipo;
+    private Long equipo;
 
     @Column(name = "puntos", nullable = false)
     private int puntos;

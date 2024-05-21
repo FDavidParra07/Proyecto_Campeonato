@@ -19,15 +19,15 @@ public class Partido implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne
-    private Equipo local;
+    @Column(name = "local", nullable = false)
+    private Long local;
 
-    @ManyToOne
-    private Equipo visitante;
+    @Column(name = "visitante", nullable = false)
+    private Long visitante;
 
-    @ManyToOne
-    private Estadio estadio;
+    @Column(name = "estadio", nullable = false)
+    private Long estadio;
 
-    @OneToOne
-    private Resultado resultado;
+    @Column(name = "resultado", nullable = false)
+    private Long resultado;
 }

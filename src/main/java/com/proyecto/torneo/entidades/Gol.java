@@ -19,12 +19,11 @@ public class Gol implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "resultado_id")
-    private Resultado resultado;
+    @Column(name = "resultado", nullable = false)
+    private Long resultado;
 
-    @ManyToOne
-    private Jugador jugador;
+    @Column(name = "jugador", nullable = false)
+    private Long jugador;
 
     @Column(name = "minuto", nullable = false)
     private int minuto;

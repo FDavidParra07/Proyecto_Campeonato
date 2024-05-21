@@ -26,6 +26,6 @@ public class Resultado implements Serializable {
     @Column(name = "goles_visitante", nullable = false)
     private int golesVisitante;
 
-    @OneToMany(mappedBy = "resultado")
-    private List<Gol> listaGoles;
+    @Column(name = "lista_goles", nullable = false)
+    private List<Long> listaGoles;
 }

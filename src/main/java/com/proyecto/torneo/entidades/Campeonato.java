@@ -20,12 +20,12 @@ public class Campeonato implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToMany
-    private List<Equipo> equipos;
+    @Column(name = "equipos", nullable = false)
+    private List<Long> equipos;
 
-    @OneToMany
-    private List<Partido> partidos;
+    @Column(name = "partidos", nullable = false)
+    private List<Long> partidos;
 
-    @OneToMany
-    private List<Clasificacion> clasificaciones;
+    @Column(name = "clasificaciones", nullable = false)
+    private List<Long> clasificaciones;
 }
