@@ -7,22 +7,38 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-public class ClasificacionServicio implements Serializable {
-
-    private final ModelMapper modelMapper;
+public class ClasificacionServicio {
 
     @Autowired
-    public ClasificacionServicio(ModelMapper modelMapper, ClasificacionRepositorio clasificacionRepositorio) {
-        this.modelMapper = modelMapper;
-        this.clasificacionRepositorio = clasificacionRepositorio;
+    private ClasificacionRepositorio clasificacionRepositorio;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    public ClasificacionDto registrarClasificacion(ClasificacionDto clasificacionDto) {
+        Clasificacion clasificacion = modelMapper.map(clasificacionDto, Clasificacion.class);
+        clasificacion = clasificacionRepositorio.save(clasificacion);
+        return modelMapper.map(clasificacion, ClasificacionDto.class);
     }
 
-    private final ClasificacionRepositorio clasificacionRepositorio;
+    public List<ClasificacionDto> obtenerClasificaciones() {
+        List<Clasificacion> clasificaciones = clasificacionRepositorio.findAll();
+        return clasificaciones.stream()
+                .map(clasificacion -> modelMapper.map(clasificacion, ClasificacionDto.class))
+                .collect(Collectors.toList());
+    }
 
-    public void registrarClasificacion(ClasificacionDto clasificacionDto) {
-        clasificacionRepositorio.save(modelMapper.map(clasificacionDto, Clasificacion.class));
+    public ClasificacionDto obtenerClasificacionPorId(long id) {
+        Optional<Clasificacion> clasificacionOptional = clasificacionRepositorio.findById(id);
+        return clasificacionOptional.map(clasificacion -> modelMapper.map(clasificacion, ClasificacionDto.class)).orElse(null);
+    }
+
+    public void eliminarClasificacion(long id) {
+        clasificacionRepositorio.deleteById(id);
     }
 }

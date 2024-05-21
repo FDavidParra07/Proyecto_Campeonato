@@ -4,32 +4,41 @@ import com.proyecto.torneo.dto.PartidoDto;
 import com.proyecto.torneo.entidades.Partido;
 import com.proyecto.torneo.repositorios.PartidoRepositorio;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-public class PartidoServicio implements Serializable {
-
-    private final ModelMapper modelMapper;
+public class PartidoServicio {
 
     @Autowired
-    public PartidoServicio(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-    }
+    private PartidoRepositorio partidoRepositorio;
 
     @Autowired
-    PartidoRepositorio partidoRepositorio;
+    private ModelMapper modelMapper;
 
-    public void registrarPartido(PartidoDto partidoDto) {
-        partidoRepositorio.save(modelMapper.map(partidoDto, Partido.class));
+    public PartidoDto registrarPartido(PartidoDto partidoDto) {
+        Partido partido = modelMapper.map(partidoDto, Partido.class);
+        partido = partidoRepositorio.save(partido);
+        return modelMapper.map(partido, PartidoDto.class);
     }
 
     public List<PartidoDto> obtenerPartidos() {
-        TypeToken<List<PartidoDto>> typeToken = new TypeToken<>() {};
-        return modelMapper.map(partidoRepositorio.findAll(), typeToken.getType());
+        List<Partido> partidos = partidoRepositorio.findAll();
+        return partidos.stream()
+                .map(partido -> modelMapper.map(partido, PartidoDto.class))
+                .collect(Collectors.toList());
+    }
+
+    public PartidoDto obtenerPartidoPorId(long id) {
+        Optional<Partido> partidoOptional = partidoRepositorio.findById(id);
+        return partidoOptional.map(partido -> modelMapper.map(partido, PartidoDto.class)).orElse(null);
+    }
+
+    public void eliminarPartido(long id) {
+        partidoRepositorio.deleteById(id);
     }
 }

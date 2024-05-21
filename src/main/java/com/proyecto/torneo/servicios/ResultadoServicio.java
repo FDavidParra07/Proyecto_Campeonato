@@ -7,22 +7,38 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-public class ResultadoServicio implements Serializable {
-
-    private final ResultadoRepositorio resultadoRepositorio;
-    private final ModelMapper modelMapper;
+public class ResultadoServicio {
 
     @Autowired
-    public ResultadoServicio(ResultadoRepositorio resultadoRepositorio, ModelMapper modelMapper) {
-        this.resultadoRepositorio = resultadoRepositorio;
-        this.modelMapper = modelMapper;
+    private ResultadoRepositorio resultadoRepositorio;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    public ResultadoDto registrarResultado(ResultadoDto resultadoDto) {
+        Resultado resultado = modelMapper.map(resultadoDto, Resultado.class);
+        resultado = resultadoRepositorio.save(resultado);
+        return modelMapper.map(resultado, ResultadoDto.class);
     }
 
-    public void registrarResultado(ResultadoDto resultadoDto) {
-        Resultado resultado = modelMapper.map(resultadoDto, Resultado.class);
-        resultadoRepositorio.save(resultado);
+    public List<ResultadoDto> obtenerResultados() {
+        List<Resultado> resultados = resultadoRepositorio.findAll();
+        return resultados.stream()
+                .map(resultado -> modelMapper.map(resultado, ResultadoDto.class))
+                .collect(Collectors.toList());
+    }
+
+    public ResultadoDto obtenerResultadoPorId(long id) {
+        Optional<Resultado> resultadoOptional = resultadoRepositorio.findById(id);
+        return resultadoOptional.map(resultado -> modelMapper.map(resultado, ResultadoDto.class)).orElse(null);
+    }
+
+    public void eliminarResultado(long id) {
+        resultadoRepositorio.deleteById(id);
     }
 }
