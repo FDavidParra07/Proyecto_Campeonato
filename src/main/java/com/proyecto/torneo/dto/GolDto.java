@@ -1,11 +1,15 @@
 package com.proyecto.torneo.dto;
 
 import lombok.Data;
-
-import java.io.Serializable;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Data
-public class GolDto implements Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+public class GolDto {
+    private Long id;
+    private Long resultado;
     private Long jugador;
     private int minuto;
     private boolean autogol;

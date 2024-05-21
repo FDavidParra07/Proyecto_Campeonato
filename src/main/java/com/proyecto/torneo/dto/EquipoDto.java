@@ -1,12 +1,13 @@
 package com.proyecto.torneo.dto;
 
-import com.proyecto.torneo.entidades.Estadio;
 import lombok.Data;
-
-import java.io.Serializable;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Data
-public class EquipoDto implements Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+public class EquipoDto {
     private Long id;
     private String nombre;
     private String tecnico;
