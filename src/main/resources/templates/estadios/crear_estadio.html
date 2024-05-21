@@ -3,10 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Crear Estadio</title>
+    <script th:inline="javascript">
+        function validarFormulario() {
+            var nombre = document.getElementById('nombre').value.trim();
+            var capacidad = document.getElementById('capacidad').value.trim();
+            var ubicacion = document.getElementById('ubicacion').value.trim();
+
+            if (!nombre || !capacidad || !ubicacion) {
+                alert('Por favor, complete todos los campos.');
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
 <h1>Crear Estadio</h1>
-<form th:action="@{/estadios/nuevo}" th:object="${estadio}" method="post">
+<form th:action="@{/estadios/nuevo}" th:object="${estadio}" method="post" onsubmit="return validarFormulario()">
     <div>
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" th:field="*{nombre}">
@@ -23,5 +36,7 @@
         <button type="submit">Guardar</button>
     </div>
 </form>
+<div th:if="${error}" th:utext="${alertScript}" th:remove="tag"></div>
+</div>
 </body>
 </html>

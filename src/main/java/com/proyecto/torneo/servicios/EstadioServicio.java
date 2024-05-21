@@ -41,4 +41,8 @@ public class EstadioServicio {
     public void eliminarEstadio(long id) {
         estadioRepositorio.deleteById(id);
     }
+
+    public boolean existeEstadioPorNombre(String nombre){
+        return estadioRepositorio.existsByNombreIgnoreCase(nombre);
+    }
 }

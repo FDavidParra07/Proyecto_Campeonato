@@ -19,23 +19,30 @@ public class EstadioControlador {
     public String listarEstadios(Model model) {
         List<EstadioDto> estadios = estadioServicio.obtenerEstadios();
         model.addAttribute("estadios", estadios);
-        return "estadios/estadios"; // Cambiado a "estadios/estadios"
+        return "estadios/estadios";
     }
 
     @GetMapping("/estadios/nuevo")
     public String mostrarFormulario(Model model) {
         EstadioDto estadioDto = new EstadioDto();
         model.addAttribute("estadio", estadioDto);
-        return "estadios/crear_estadio"; // Cambiado a "estadios/crear_estadio"
+        return "estadios/crear_estadio";
     }
 
     @PostMapping("/estadios/nuevo")
     public String registrarEstadio(@ModelAttribute("estadio") EstadioDto estadioDto, Model model) {
         try {
+            String nombreEstadio = estadioDto.getNombre().toLowerCase();
+            if (estadioServicio.existeEstadioPorNombre(nombreEstadio)) {
+                throw new IllegalArgumentException("El nombre del estadio ya está registrado.");
+            }
             estadioServicio.registrarEstadio(estadioDto);
             model.addAttribute("mensaje", "Estadio registrado exitosamente.");
-        } catch (Exception e) {
+            model.addAttribute("alertScript", "<script>alert('Estadio registrado exitosamente.');</script>");
+        } catch (IllegalArgumentException e) {
             model.addAttribute("error", "Error al registrar el estadio: " + e.getMessage());
+            model.addAttribute("alertScript", "<script>alert('El nombre del estadio ya esta en uso en la base de datos.');</script>");
+            return "estadios/crear_estadio";
         }
         return "redirect:/estadios";
     }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Equipo</title>
+</head>
+<body>
+<h1>Crear Equipo</h1>
+<form th:action="@{/equipos/nuevo}" th:object="${equipo}" method="post">
+    <div>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" th:field="*{nombre}">
+    </div>
+    <div>
+        <label for="tecnico">Técnico:</label>
+        <input type="text" id="tecnico" th:field="*{tecnico}">
+    </div>
+    <div>
+        <label for="uniforme">Uniforme:</label>
+        <input type="text" id="uniforme" th:field="*{uniforme}">
+    </div>
+    <div>
+        <label for="direccion">Dirección:</label>
+        <input type="text" id="direccion" th:field="*{direccion}">
+    </div>
+    <div>
+        <label for="estadio">Estadio:</label>
+        <select id="estadio" th:field="*{estadio}">
+            <option value="" disabled selected>Seleccione un estadio</option>
+            <option th:each="estadio : ${estadios}" th:value="${estadio.id}" th:text="${estadio.nombre}"></option>
+        </select>
+    </div>
+    <div>
+        <button type="submit">Guardar</button>
+    </div>
+</form>
+</body>
+</html>
