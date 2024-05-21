@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 public class ClasificacionDto implements Serializable {
-    private Equipo equipo;
+    private Long equipo;
     private int puntos;
     private int golesAFavor;
     private int golesEnContra;

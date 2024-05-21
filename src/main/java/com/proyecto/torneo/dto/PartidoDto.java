@@ -8,6 +8,6 @@ import java.io.Serializable;
 public class PartidoDto implements Serializable {
     private Long idLocal;
     private Long idVisitante;
-    private EstadioDto estadio;
-    private ResultadoDto resultado;
+    private Long estadio;
+    private Long resultado;
 }

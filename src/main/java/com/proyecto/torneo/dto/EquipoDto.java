@@ -12,5 +12,5 @@ public class EquipoDto implements Serializable {
     private String tecnico;
     private String uniforme;
     private String direccion;
-    private Estadio estadio;
+    private Long estadio;
 }

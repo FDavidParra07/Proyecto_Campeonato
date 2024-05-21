@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 public class CampeonatoDto implements Serializable {
-    private List<Equipo> equipos;
-    private List<Partido> partidos;
-    private List<Clasificacion> clasificaciones;
+    private List<Long> equipos;
+    private List<Long> partidos;
+    private List<Long> clasificaciones;
 }
