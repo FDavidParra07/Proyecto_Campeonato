@@ -19,14 +19,14 @@ public class EstadioControlador {
     public String listarEstadios(Model model) {
         List<EstadioDto> estadios = estadioServicio.obtenerEstadios();
         model.addAttribute("estadios", estadios);
-        return "estadios";
+        return "estadios/estadios"; // Cambiado a "estadios/estadios"
     }
 
     @GetMapping("/estadios/nuevo")
     public String mostrarFormulario(Model model) {
         EstadioDto estadioDto = new EstadioDto();
         model.addAttribute("estadio", estadioDto);
-        return "crear_estadio";
+        return "estadios/crear_estadio"; // Cambiado a "estadios/crear_estadio"
     }
 
     @PostMapping("/estadios/nuevo")

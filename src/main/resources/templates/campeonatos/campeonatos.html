@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Campeonatos</title>
+</head>
+<body>
+<h1>Listado de Campeonatos</h1>
+<a href="/campeonatos/nuevo">Agregar Campeonato</a>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Equipos</th>
+        <th>Partidos</th>
+        <th>Clasificaciones</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="campeonato : ${campeonatos}">
+        <td th:text="${campeonato.id}">ID</td>
+        <td th:text="${campeonato.equipos}">Equipos</td>
+        <td th:text="${campeonato.partidos}">Partidos</td>
+        <td th:text="${campeonato.clasificaciones}">Clasificaciones</td>
+        <td>
+            <a th:href="@{'/campeonatos/eliminar/' + ${campeonato.id}}">Eliminar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

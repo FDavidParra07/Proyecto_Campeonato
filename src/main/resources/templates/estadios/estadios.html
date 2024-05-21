@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Estadios</title>
+</head>
+<body>
+<h1>Listado de Estadios</h1>
+<a href="/estadios/nuevo">Agregar Estadio</a>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Capacidad</th>
+        <th>Ubicación</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="estadio : ${estadios}">
+        <td th:text="${estadio.id}">ID</td>
+        <td th:text="${estadio.nombre}">Nombre</td>
+        <td th:text="${estadio.capacidad}">Capacidad</td>
+        <td th:text="${estadio.ubicacion}">Ubicación</td>
+        <td>
+            <a th:href="@{'/estadios/eliminar/' + ${estadio.id}}">Eliminar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

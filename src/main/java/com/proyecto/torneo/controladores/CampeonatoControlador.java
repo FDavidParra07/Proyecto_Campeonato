@@ -19,14 +19,14 @@ public class CampeonatoControlador {
     public String listarCampeonatos(Model model) {
         List<CampeonatoDto> campeonatos = campeonatoServicio.obtenerCampeonatos();
         model.addAttribute("campeonatos", campeonatos);
-        return "campeonatos";
+        return "campeonatos/campeonatos";
     }
 
     @GetMapping("/campeonatos/nuevo")
     public String mostrarFormulario(Model model) {
         CampeonatoDto campeonatoDto = new CampeonatoDto();
         model.addAttribute("campeonato", campeonatoDto);
-        return "crear_campeonato";
+        return "campeonatos/crear_campeonato";
     }
 
     @PostMapping("/campeonatos/nuevo")
