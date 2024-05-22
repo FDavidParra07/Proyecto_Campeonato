@@ -3,10 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Crear Equipo</title>
+    <script th:inline="javascript">
+        function validarFormulario() {
+            var nombre = document.getElementById('nombre').value.trim();
+            var tecnico = document.getElementById('tecnico').value.trim();
+            var uniforme = document.getElementById('uniforme').value.trim();
+            var direccion = document.getElementById('direccion').value.trim();
+            var estadio = document.getElementById('estadio').value.trim();
+
+            if (!nombre || !tecnico || !uniforme || !direccion || !estadio ) {
+                alert('Por favor, complete todos los campos.');
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
 <h1>Crear Equipo</h1>
-<form th:action="@{/equipos/nuevo}" th:object="${equipo}" method="post">
+<form th:action="@{/equipos/nuevo}" th:object="${equipo}" method="post" onsubmit="return validarFormulario()">
     <div>
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" th:field="*{nombre}">
@@ -34,5 +49,6 @@
         <button type="submit">Guardar</button>
     </div>
 </form>
+<div th:if="${error}" th:utext="${alertScript}" th:remove="tag"></div>
 </body>
 </html>

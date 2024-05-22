@@ -26,6 +26,9 @@
         <td th:text="${equipo.uniforme}">Uniforme</td>
         <td th:text="${equipo.direccion}">Dirección</td>
         <td th:text="${equipo.estadio}">Estadio</td>
+        <td>
+            <a th:href="@{'/equipos/eliminar/' + ${equipo.id}}">Eliminar</a>
+        </td>
     </tr>
     </tbody>
 </table>

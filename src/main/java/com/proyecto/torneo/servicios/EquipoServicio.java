@@ -41,4 +41,12 @@ public class EquipoServicio {
     public void eliminarEquipo(long id) {
         equipoRepositorio.deleteById(id);
     }
+
+    public boolean existeEquipoPorNombre(String nombre){
+        return equipoRepositorio.existsByNombreIgnoreCase(nombre);
+    }
+
+    public boolean existeEquipoPorId(long id){
+        return equipoRepositorio.existsById(id);
+    }
 }
