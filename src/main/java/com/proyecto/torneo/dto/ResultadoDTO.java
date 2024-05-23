@@ -9,4 +9,5 @@ public class ResultadoDTO {
     private int golesLocal;
     private int golesVisitante;
     private List<GolDTO> listaGoles;
+    private Long partidoId;
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -27,7 +28,10 @@ public class Partido implements Serializable {
     @JoinColumn(name = "estadio_id", nullable = true)
     private Estadio estadio;
 
-    @OneToOne(mappedBy = "partido")
+    @Column(name = "fecha", nullable = false)
+    private LocalDateTime fecha;
+
+    @OneToOne(mappedBy = "partido", cascade = CascadeType.ALL)
     private Resultado resultado;
 
     @ManyToOne

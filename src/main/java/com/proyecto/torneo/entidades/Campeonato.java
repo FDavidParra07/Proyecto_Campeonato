@@ -11,11 +11,13 @@ import java.util.List;
 @Entity
 @Table(name = "campeonatos")
 public class Campeonato implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+
+    @Column(name = "nombre", nullable = false)
+    private String nombre;
 
     @OneToMany(mappedBy = "campeonato", cascade = CascadeType.ALL)
     private List<Equipo> equipos;

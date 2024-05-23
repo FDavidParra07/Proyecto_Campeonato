@@ -1,16 +1,15 @@
 package com.proyecto.torneo.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class PartidoDTO {
     private Long id;
-    private EquipoDTO local;
-    private EquipoDTO visitante;
-    private EstadioDTO estadio;
+    private Long localId;
+    private Long visitanteId;
+    private Long estadioId;
+    private LocalDateTime fecha;
     private ResultadoDTO resultado;
+    private Long campeonatoId;
 }

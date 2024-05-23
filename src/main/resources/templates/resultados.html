@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Resultados</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<h1>Lista de Resultados</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Goles Local</th>
+        <th>Goles Visitante</th>
+        <th>Partido</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="resultado : ${resultados}">
+        <td th:text="${resultado.id}"></td>
+        <td th:text="${resultado.golesLocal}"></td>
+        <td th:text="${resultado.golesVisitante}"></td>
+        <td th:text="${resultado.partido.local.nombre} + ' vs ' + ${resultado.partido.visitante.nombre}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
