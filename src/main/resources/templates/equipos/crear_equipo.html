@@ -9,9 +9,9 @@
             var tecnico = document.getElementById('tecnico').value.trim();
             var uniforme = document.getElementById('uniforme').value.trim();
             var direccion = document.getElementById('direccion').value.trim();
-            var estadio = document.getElementById('estadio').value.trim();
+            var estadio = document.getElementById('estadio').value;
 
-            if (!nombre || !tecnico || !uniforme || !direccion || !estadio ) {
+            if (!nombre || !tecnico || !uniforme || !direccion || !estadio) {
                 alert('Por favor, complete todos los campos.');
                 return false;
             }
@@ -40,7 +40,7 @@
     </div>
     <div>
         <label for="estadio">Estadio:</label>
-        <select id="estadio" th:field="*{estadio}">
+        <select id="estadio" th:field="*{estadio.id}">
             <option value="" disabled selected>Seleccione un estadio</option>
             <option th:each="estadio : ${estadios}" th:value="${estadio.id}" th:text="${estadio.nombre}"></option>
         </select>

@@ -31,6 +31,7 @@ public class Equipo implements Serializable {
     @Column(name = "direccion", nullable = false)
     private String direccion;
 
-    @Column(name = "estadio", nullable = false)
-    private Long estadio;
+    @ManyToOne
+    @JoinColumn(name = "estadio_id", nullable = false)
+    private Estadio estadio;
 }

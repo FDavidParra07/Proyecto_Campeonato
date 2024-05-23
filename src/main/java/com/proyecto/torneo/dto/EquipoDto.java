@@ -13,5 +13,5 @@ public class EquipoDto {
     private String tecnico;
     private String uniforme;
     private String direccion;
-    private Long estadio;
+    private EstadioDto estadio;
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@RequestMapping("/equipos")
 public class EquipoControlador {
 
     @Autowired
@@ -20,15 +21,14 @@ public class EquipoControlador {
     @Autowired
     private EstadioServicio estadioServicio;
 
-    @GetMapping("/equipos")
+    @GetMapping
     public String listarEquipos(Model model) {
         List<EquipoDto> equipos = equipoServicio.obtenerEquipos();
         model.addAttribute("equipos", equipos);
-        model.addAttribute("estadios", estadioServicio.obtenerEstadios());
         return "equipos/equipos";
     }
 
-    @GetMapping("/equipos/nuevo")
+    @GetMapping("/nuevo")
     public String mostrarFormulario(Model model) {
         EquipoDto equipoDto = new EquipoDto();
         model.addAttribute("equipo", equipoDto);
@@ -39,17 +39,12 @@ public class EquipoControlador {
         return "equipos/crear_equipo";
     }
 
-    @PostMapping("/equipos/nuevo")
+    @PostMapping("/nuevo")
     public String registrarEquipo(@ModelAttribute("equipo") EquipoDto equipoDto, Model model) {
         try {
             String nombreEquipo = equipoDto.getNombre().toLowerCase();
             if (equipoServicio.existeEquipoPorNombre(nombreEquipo)) {
                 throw new IllegalArgumentException("El nombre del equipo ya está registrado.");
-            }
-
-            Long idEstadio = equipoDto.getEstadio();
-            if (equipoServicio.existeEquipoPorId(idEstadio)) {
-                throw new IllegalArgumentException("El estadio seleccionado ya está asociado a otro equipo.");
             }
 
             equipoServicio.registrarEquipo(equipoDto);
@@ -64,8 +59,8 @@ public class EquipoControlador {
         return "redirect:/equipos";
     }
 
-    @GetMapping("/equipos/eliminar/{id}")
-    public String eliminarEquipo(@PathVariable long id, Model model) {
+    @GetMapping("/eliminar/{id}")
+    public String eliminarEquipo(@PathVariable long id) {
         equipoServicio.eliminarEquipo(id);
         return "redirect:/equipos";
     }

@@ -1,7 +1,9 @@
 package com.proyecto.torneo.servicios;
 
 import com.proyecto.torneo.dto.EquipoDto;
+import com.proyecto.torneo.dto.EstadioDto;
 import com.proyecto.torneo.entidades.Equipo;
+import com.proyecto.torneo.entidades.Estadio;
 import com.proyecto.torneo.repositorios.EquipoRepositorio;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +31,21 @@ public class EquipoServicio {
     public List<EquipoDto> obtenerEquipos() {
         List<Equipo> equipos = equipoRepositorio.findAll();
         return equipos.stream()
-                .map(equipo -> modelMapper.map(equipo, EquipoDto.class))
+                .map(equipo -> {
+                    EquipoDto equipoDto = modelMapper.map(equipo, EquipoDto.class);
+                    equipoDto.setEstadio(modelMapper.map(equipo.getEstadio(), EstadioDto.class));
+                    return equipoDto;
+                })
                 .collect(Collectors.toList());
     }
 
     public EquipoDto obtenerEquipoPorId(long id) {
         Optional<Equipo> equipoOptional = equipoRepositorio.findById(id);
-        return equipoOptional.map(equipo -> modelMapper.map(equipo, EquipoDto.class)).orElse(null);
+        return equipoOptional.map(equipo -> {
+            EquipoDto equipoDto = modelMapper.map(equipo, EquipoDto.class);
+            equipoDto.setEstadio(modelMapper.map(equipo.getEstadio(), EstadioDto.class));
+            return equipoDto;
+        }).orElse(null);
     }
 
     public void eliminarEquipo(long id) {
