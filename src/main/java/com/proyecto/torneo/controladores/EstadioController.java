@@ -4,46 +4,30 @@ import com.proyecto.torneo.dto.EstadioDTO;
 import com.proyecto.torneo.entidades.Estadio;
 import com.proyecto.torneo.servicios.EstadioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-@RestController
-@RequestMapping("/api/estadios")
+@Controller
+@RequestMapping("/estadios")
 public class EstadioController {
 
     @Autowired
     private EstadioService estadioService;
 
-    @GetMapping
-    public List<EstadioDTO> findAll() {
-        return estadioService.findAll().stream()
-                .map(estadio -> {
-                    EstadioDTO dto = new EstadioDTO();
-                    return dto;
-                })
-                .collect(Collectors.toList());
+    @GetMapping("/create")
+    public String crearEstadioForm(Model model) {
+        model.addAttribute("estadio", new EstadioDTO());
+        return "crear_estadio";
     }
 
-    @GetMapping("/{id}")
-    public EstadioDTO findById(@PathVariable Long id) {
-        return estadioService.findById(id).map(estadio -> {
-            EstadioDTO dto = new EstadioDTO();
-            return dto;
-        }).orElse(null);
-    }
-
-    @PostMapping
-    public EstadioDTO create(@RequestBody EstadioDTO estadioDTO) {
+    @PostMapping("/create")
+    public String crearEstadioSubmit(@ModelAttribute EstadioDTO estadioDTO) {
         Estadio estadio = new Estadio();
-        estadio = estadioService.save(estadio);
-        EstadioDTO dto = new EstadioDTO();
-        return dto;
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id) {
-        estadioService.deleteById(id);
+        estadio.setNombre(estadioDTO.getNombre());
+        estadio.setCapacidad(estadioDTO.getCapacidad());
+        estadio.setUbicacion(estadioDTO.getUbicacion());
+        estadioService.save(estadio);
+        return "redirect:/estadios";
     }
 }

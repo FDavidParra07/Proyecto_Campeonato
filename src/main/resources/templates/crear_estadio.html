@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Crear Estadio</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<h1>Crear Estadio</h1>
+<form th:action="@{/estadios/create}" method="post" th:object="${estadio}" onsubmit="return validarFormulario()">
+    <label for="nombre">Nombre:</label><br>
+    <input type="text" id="nombre" name="nombre" th:field="*{nombre}" required><br>
+    <label for="capacidad">Capacidad:</label><br>
+    <input type="number" id="capacidad" name="capacidad" th:field="*{capacidad}" required><br>
+    <label for="ubicacion">Ubicación:</label><br>
+    <input type="text" id="ubicacion" name="ubicacion" th:field="*{ubicacion}" required><br>
+    <button type="submit">Crear</button>
+</form>
+<script th:inline="javascript">
+    function validarFormulario() {
+        var nombre = document.getElementById("nombre").value;
+        var capacidad = document.getElementById("capacidad").value;
+        var ubicacion = document.getElementById("ubicacion").value;
+        if (nombre === '' || capacidad === '' || ubicacion === '') {
+            alert("Por favor, complete todos los campos.");
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>

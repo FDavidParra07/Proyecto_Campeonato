@@ -1,5 +1,6 @@
 package com.proyecto.torneo.controladores;
 
+import com.proyecto.torneo.dto.EstadioDTO;
 import com.proyecto.torneo.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,8 @@ public class MainController {
     private ResultadoService resultadoService;
     @Autowired
     private ClasificacionService clasificacionService;
+    @Autowired
+    private EstadioService estadioService;
 
     @GetMapping("/")
     public String index() {
@@ -53,5 +56,12 @@ public class MainController {
     public String clasificaciones(Model model) {
         model.addAttribute("clasificaciones", clasificacionService.findAll());
         return "clasificaciones";
+    }
+
+    @GetMapping("/estadios")
+    public String estadios(Model model) {
+        model.addAttribute("estadios", estadioService.findAll());
+        model.addAttribute("estadio", new EstadioDTO());
+        return "estadios";
     }
 }
