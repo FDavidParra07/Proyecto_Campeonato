@@ -1,15 +1,15 @@
 package com.proyecto.torneo.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClasificacionDto {
+public class ClasificacionDTO {
     private Long id;
-    private Long equipo;
+    private EquipoDTO equipo;
     private int puntos;
     private int golesAFavor;
     private int golesEnContra;

@@ -3,35 +3,35 @@ package com.proyecto.torneo.entidades;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-
 import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity(name = "equipo")
 @Table(name = "equipos")
 public class Equipo implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_equipos")
-    @SequenceGenerator(name = "seq_equipos", sequenceName = "seq_equipos", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "tecnico", nullable = false)
+    @Column(name = "tecnico", nullable = true)
     private String tecnico;
 
-    @Column(name = "uniforme", nullable = false)
+    @Column(name = "uniforme", nullable = true)
     private String uniforme;
 
-    @Column(name = "direccion", nullable = false)
+    @Column(name = "direccion", nullable = true)
     private String direccion;
 
     @ManyToOne
-    @JoinColumn(name = "estadio_id", nullable = false)
+    @JoinColumn(name = "estadio_id", nullable = true)
     private Estadio estadio;
+
+    @ManyToOne
+    @JoinColumn(name = "campeonato_id", nullable = false)
+    private Campeonato campeonato;
 }

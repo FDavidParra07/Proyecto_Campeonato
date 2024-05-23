@@ -1,6 +1,6 @@
 package com.proyecto.torneo.controladores;
 
-import com.proyecto.torneo.dto.CampeonatoDto;
+import com.proyecto.torneo.dto.CampeonatoDTO;
 import com.proyecto.torneo.servicios.CampeonatoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,20 +17,20 @@ public class CampeonatoControlador {
 
     @GetMapping("/campeonatos")
     public String listarCampeonatos(Model model) {
-        List<CampeonatoDto> campeonatos = campeonatoServicio.obtenerCampeonatos();
+        List<CampeonatoDTO> campeonatos = campeonatoServicio.obtenerCampeonatos();
         model.addAttribute("campeonatos", campeonatos);
         return "campeonatos/campeonatos";
     }
 
     @GetMapping("/campeonatos/nuevo")
     public String mostrarFormulario(Model model) {
-        CampeonatoDto campeonatoDto = new CampeonatoDto();
-        model.addAttribute("campeonato", campeonatoDto);
+        CampeonatoDTO CampeonatoDTO = new CampeonatoDTO();
+        model.addAttribute("campeonato", CampeonatoDTO);
         return "campeonatos/crear_campeonato";
     }
 
     @PostMapping("/campeonatos/nuevo")
-    public String registrarCampeonato(@ModelAttribute("campeonato") CampeonatoDto campeonatoDto, Model model) {
+    public String registrarCampeonato(@ModelAttribute("campeonato") CampeonatoDTO campeonatoDto, Model model) {
         try {
             campeonatoServicio.registrarCampeonato(campeonatoDto);
             model.addAttribute("mensaje", "Campeonato registrado exitosamente.");

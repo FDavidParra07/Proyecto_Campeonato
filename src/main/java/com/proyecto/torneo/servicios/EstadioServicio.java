@@ -1,12 +1,11 @@
 package com.proyecto.torneo.servicios;
 
-import com.proyecto.torneo.dto.EstadioDto;
+import com.proyecto.torneo.dto.EstadioDTO;
 import com.proyecto.torneo.entidades.Estadio;
 import com.proyecto.torneo.repositorios.EstadioRepositorio;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,29 +19,25 @@ public class EstadioServicio {
     @Autowired
     private ModelMapper modelMapper;
 
-    public EstadioDto registrarEstadio(EstadioDto estadioDto) {
-        Estadio estadio = modelMapper.map(estadioDto, Estadio.class);
+    public EstadioDTO registrarEstadio(EstadioDTO estadioDTO) {
+        Estadio estadio = modelMapper.map(estadioDTO, Estadio.class);
         estadio = estadioRepositorio.save(estadio);
-        return modelMapper.map(estadio, EstadioDto.class);
+        return modelMapper.map(estadio, EstadioDTO.class);
     }
 
-    public List<EstadioDto> obtenerEstadios() {
+    public List<EstadioDTO> obtenerEstadios() {
         List<Estadio> estadios = estadioRepositorio.findAll();
         return estadios.stream()
-                .map(estadio -> modelMapper.map(estadio, EstadioDto.class))
+                .map(estadio -> modelMapper.map(estadio, EstadioDTO.class))
                 .collect(Collectors.toList());
     }
 
-    public EstadioDto obtenerEstadioPorId(long id) {
+    public EstadioDTO obtenerEstadioPorId(long id) {
         Optional<Estadio> estadioOptional = estadioRepositorio.findById(id);
-        return estadioOptional.map(estadio -> modelMapper.map(estadio, EstadioDto.class)).orElse(null);
+        return estadioOptional.map(estadio -> modelMapper.map(estadio, EstadioDTO.class)).orElse(null);
     }
 
     public void eliminarEstadio(long id) {
         estadioRepositorio.deleteById(id);
-    }
-
-    public boolean existeEstadioPorNombre(String nombre){
-        return estadioRepositorio.existsByNombreIgnoreCase(nombre);
     }
 }

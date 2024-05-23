@@ -1,6 +1,6 @@
 package com.proyecto.torneo.controladores;
 
-import com.proyecto.torneo.dto.EstadioDto;
+import com.proyecto.torneo.dto.EstadioDTO;
 import com.proyecto.torneo.servicios.EstadioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,20 +17,20 @@ public class EstadioControlador {
 
     @GetMapping("/estadios")
     public String listarEstadios(Model model) {
-        List<EstadioDto> estadios = estadioServicio.obtenerEstadios();
+        List<EstadioDTO> estadios = estadioServicio.obtenerEstadios();
         model.addAttribute("estadios", estadios);
         return "estadios/estadios";
     }
 
     @GetMapping("/estadios/nuevo")
     public String mostrarFormulario(Model model) {
-        EstadioDto estadioDto = new EstadioDto();
+        EstadioDTO estadioDto = new EstadioDTO();
         model.addAttribute("estadio", estadioDto);
         return "estadios/crear_estadio";
     }
 
     @PostMapping("/estadios/nuevo")
-    public String registrarEstadio(@ModelAttribute("estadio") EstadioDto estadioDto, Model model) {
+    public String registrarEstadio(@ModelAttribute("estadio") EstadioDTO estadioDto, Model model) {
         try {
             String nombreEstadio = estadioDto.getNombre().toLowerCase();
             if (estadioServicio.existeEstadioPorNombre(nombreEstadio)) {

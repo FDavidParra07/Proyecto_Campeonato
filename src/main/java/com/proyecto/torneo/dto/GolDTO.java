@@ -1,16 +1,16 @@
 package com.proyecto.torneo.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GolDto {
+public class GolDTO {
     private Long id;
-    private Long resultado;
-    private Long jugador;
+    private ResultadoDTO resultado;
+    private JugadorDTO jugador;
     private int minuto;
     private boolean autogol;
     private boolean golLocal;

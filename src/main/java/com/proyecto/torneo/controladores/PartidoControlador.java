@@ -1,6 +1,6 @@
 package com.proyecto.torneo.controladores;
 
-import com.proyecto.torneo.dto.PartidoDto;
+import com.proyecto.torneo.dto.PartidoDTO;
 import com.proyecto.torneo.servicios.PartidoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,20 +17,20 @@ public class PartidoControlador {
 
     @GetMapping("/partidos")
     public String listarPartidos(Model model) {
-        List<PartidoDto> partidos = partidoServicio.obtenerPartidos();
+        List<PartidoDTO> partidos = partidoServicio.obtenerPartidos();
         model.addAttribute("partidos", partidos);
         return "partidos";
     }
 
     @GetMapping("/partidos/nuevo")
     public String mostrarFormulario(Model model) {
-        PartidoDto partidoDto = new PartidoDto();
+        PartidoDTO partidoDto = new PartidoDTO();
         model.addAttribute("partido", partidoDto);
         return "crear_partido";
     }
 
     @PostMapping("/partidos/nuevo")
-    public String registrarPartido(@ModelAttribute("partido") PartidoDto partidoDto, Model model) {
+    public String registrarPartido(@ModelAttribute("partido") PartidoDTO partidoDto, Model model) {
         try {
             partidoServicio.registrarPartido(partidoDto);
             model.addAttribute("mensaje", "Partido registrado exitosamente.");

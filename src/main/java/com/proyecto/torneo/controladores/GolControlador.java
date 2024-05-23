@@ -1,6 +1,6 @@
 package com.proyecto.torneo.controladores;
 
-import com.proyecto.torneo.dto.GolDto;
+import com.proyecto.torneo.dto.GolDTO;
 import com.proyecto.torneo.servicios.GolServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,20 +17,20 @@ public class GolControlador {
 
     @GetMapping("/goles")
     public String listarGoles(Model model) {
-        List<GolDto> goles = golServicio.obtenerGoles();
+        List<GolDTO> goles = golServicio.obtenerGoles();
         model.addAttribute("goles", goles);
         return "goles";
     }
 
     @GetMapping("/goles/nuevo")
     public String mostrarFormulario(Model model) {
-        GolDto golDto = new GolDto();
+        GolDTO golDto = new GolDTO();
         model.addAttribute("gol", golDto);
         return "crear_gol";
     }
 
     @PostMapping("/goles/nuevo")
-    public String registrarGol(@ModelAttribute("gol") GolDto golDto, Model model) {
+    public String registrarGol(@ModelAttribute("gol") GolDTO golDto, Model model) {
         try {
             golServicio.registrarGol(golDto);
             model.addAttribute("mensaje", "Gol registrado exitosamente.");

@@ -3,37 +3,35 @@ package com.proyecto.torneo.entidades;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-
 import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity(name = "gol")
 @Table(name = "goles")
 public class Gol implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_goles")
-    @SequenceGenerator(name = "seq_goles", sequenceName = "seq_goles", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "resultado", nullable = false)
-    private Long resultado;
+    @ManyToOne
+    @JoinColumn(name = "resultado_id", nullable = false)
+    private Resultado resultado;
 
-    @Column(name = "jugador", nullable = false)
-    private Long jugador;
+    @ManyToOne
+    @JoinColumn(name = "jugador_id", nullable = true)
+    private Jugador jugador;
 
-    @Column(name = "minuto", nullable = false)
+    @Column(name = "minuto", nullable = true)
     private int minuto;
 
-    @Column(name = "autogol", nullable = false)
+    @Column(name = "autogol", nullable = true)
     private boolean autogol;
 
-    @Column(name = "gol_local", nullable = false)
+    @Column(name = "gol_local", nullable = true)
     private boolean golLocal;
 
-    @Column(name = "gol_visitante", nullable = false)
+    @Column(name = "gol_visitante", nullable = true)
     private boolean golVisitante;
 }

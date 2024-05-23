@@ -2,7 +2,8 @@ package com.proyecto.torneo.repositorios;
 
 import com.proyecto.torneo.entidades.Partido;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.stereotype.Repository;
 
-public interface PartidoRepositorio extends JpaRepository<Partido, Long>, JpaSpecificationExecutor<Partido> {
+@Repository
+public interface PartidoRepositorio extends JpaRepository<Partido, Long> {
 }

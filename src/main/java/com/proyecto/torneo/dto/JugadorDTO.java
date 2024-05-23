@@ -1,15 +1,13 @@
 package com.proyecto.torneo.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EstadioDto {
+public class JugadorDTO {
     private Long id;
     private String nombre;
-    private int capacidad;
-    private String ubicacion;
 }

@@ -1,6 +1,6 @@
 package com.proyecto.torneo.controladores;
 
-import com.proyecto.torneo.dto.JugadorDto;
+import com.proyecto.torneo.dto.JugadorDTO;
 import com.proyecto.torneo.servicios.JugadorServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,20 +17,20 @@ public class JugadorControlador {
 
     @GetMapping("/jugadores")
     public String listarJugadores(Model model) {
-        List<JugadorDto> jugadores = jugadorServicio.obtenerJugadores();
+        List<JugadorDTO> jugadores = jugadorServicio.obtenerJugadores();
         model.addAttribute("jugadores", jugadores);
         return "jugadores";
     }
 
     @GetMapping("/jugadores/nuevo")
     public String mostrarFormulario(Model model) {
-        JugadorDto jugadorDto = new JugadorDto();
+        JugadorDTO jugadorDto = new JugadorDTO();
         model.addAttribute("jugador", jugadorDto);
         return "crear_jugador";
     }
 
     @PostMapping("/jugadores/nuevo")
-    public String registrarJugador(@ModelAttribute("jugador") JugadorDto jugadorDto, Model model) {
+    public String registrarJugador(@ModelAttribute("jugador") JugadorDTO jugadorDto, Model model) {
         try {
             jugadorServicio.registrarJugador(jugadorDto);
             model.addAttribute("mensaje", "Jugador registrado exitosamente.");

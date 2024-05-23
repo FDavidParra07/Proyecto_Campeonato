@@ -2,7 +2,8 @@ package com.proyecto.torneo.repositorios;
 
 import com.proyecto.torneo.entidades.Jugador;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.stereotype.Repository;
 
-public interface JugadorRepositorio extends JpaRepository<Jugador, Long>, JpaSpecificationExecutor<Jugador> {
+@Repository
+public interface JugadorRepositorio extends JpaRepository<Jugador, Long> {
 }

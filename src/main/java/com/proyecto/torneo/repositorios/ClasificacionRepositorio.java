@@ -2,7 +2,10 @@ package com.proyecto.torneo.repositorios;
 
 import com.proyecto.torneo.entidades.Clasificacion;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.stereotype.Repository;
+import java.util.List;
 
-public interface ClasificacionRepositorio extends JpaRepository<Clasificacion, Long>, JpaSpecificationExecutor<Clasificacion> {
+@Repository
+public interface ClasificacionRepositorio extends JpaRepository<Clasificacion, Long> {
+    List<Clasificacion> findByCampeonatoId(Long campeonatoId);
 }

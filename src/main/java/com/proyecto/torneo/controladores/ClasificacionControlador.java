@@ -1,6 +1,6 @@
 package com.proyecto.torneo.controladores;
 
-import com.proyecto.torneo.dto.ClasificacionDto;
+import com.proyecto.torneo.dto.ClasificacionDTO;
 import com.proyecto.torneo.servicios.ClasificacionServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,20 +17,20 @@ public class ClasificacionControlador {
 
     @GetMapping("/clasificaciones")
     public String listarClasificaciones(Model model) {
-        List<ClasificacionDto> clasificaciones = clasificacionServicio.obtenerClasificaciones();
+        List<ClasificacionDTO> clasificaciones = clasificacionServicio.obtenerClasificaciones();
         model.addAttribute("clasificaciones", clasificaciones);
         return "clasificaciones";
     }
 
     @GetMapping("/clasificaciones/nuevo")
     public String mostrarFormulario(Model model) {
-        ClasificacionDto clasificacionDto = new ClasificacionDto();
+        ClasificacionDTO clasificacionDto = new ClasificacionDTO();
         model.addAttribute("clasificacion", clasificacionDto);
         return "crear_clasificacion";
     }
 
     @PostMapping("/clasificaciones/nuevo")
-    public String registrarClasificacion(@ModelAttribute("clasificacion") ClasificacionDto clasificacionDto, Model model) {
+    public String registrarClasificacion(@ModelAttribute("clasificacion") ClasificacionDTO clasificacionDto, Model model) {
         try {
             clasificacionServicio.registrarClasificacion(clasificacionDto);
             model.addAttribute("mensaje", "Clasificación registrada exitosamente.");

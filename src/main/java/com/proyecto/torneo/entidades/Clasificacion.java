@@ -1,46 +1,49 @@
 package com.proyecto.torneo.entidades;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Entity(name = "clasificacion")
+@Entity
 @Table(name = "clasificaciones")
 public class Clasificacion implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_clasificaciones")
-    @SequenceGenerator(name = "seq_clasificaciones", sequenceName = "seq_clasificaciones", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private Long equipo;
+    @ManyToOne
+    @JoinColumn(name = "equipo_id", nullable = true)
+    private Equipo equipo;
 
-    @Column(name = "puntos", nullable = false)
+    @Column(name = "puntos", nullable = true)
     private int puntos;
 
-    @Column(name = "goles_a_favor", nullable = false)
+    @Column(name = "goles_a_favor", nullable = true)
     private int golesAFavor;
 
-    @Column(name = "goles_en_contra", nullable = false)
+    @Column(name = "goles_en_contra", nullable = true)
     private int golesEnContra;
 
-    @Column(name = "diferencia_de_goles", nullable = false)
+    @Column(name = "diferencia_de_goles", nullable = true)
     private int diferenciaDeGoles;
 
-    @Column(name = "partidos_jugados", nullable = false)
+    @Column(name = "partidos_jugados", nullable = true)
     private int partidosJugados;
 
-    @Column(name = "partidos_perdidos", nullable = false)
+    @Column(name = "partidos_perdidos", nullable = true)
     private int partidosPerdidos;
 
-    @Column(name = "partidos_empatados", nullable = false)
+    @Column(name = "partidos_empatados", nullable = true)
     private int partidosEmpatados;
 
-    @Column(name = "partidos_ganados", nullable = false)
+    @Column(name = "partidos_ganados", nullable = true)
     private int partidosGanados;
+
+    @ManyToOne
+    @JoinColumn(name = "campeonato_id", nullable = true)
+    private Campeonato campeonato;
 }

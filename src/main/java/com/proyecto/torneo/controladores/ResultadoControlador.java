@@ -1,6 +1,5 @@
 package com.proyecto.torneo.controladores;
 
-import com.proyecto.torneo.dto.ResultadoDto;
 import com.proyecto.torneo.servicios.ResultadoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,20 +16,20 @@ public class ResultadoControlador {
 
     @GetMapping("/resultados")
     public String listarResultados(Model model) {
-        List<ResultadoDto> resultados = resultadoServicio.obtenerResultados();
+        List<ResultadoDTO> resultados = resultadoServicio.obtenerResultados();
         model.addAttribute("resultados", resultados);
         return "resultados";
     }
 
     @GetMapping("/resultados/nuevo")
     public String mostrarFormulario(Model model) {
-        ResultadoDto resultadoDto = new ResultadoDto();
+        ResultadoDTO resultadoDto = new ResultadoDTO();
         model.addAttribute("resultado", resultadoDto);
         return "crear_resultado";
     }
 
     @PostMapping("/resultados/nuevo")
-    public String registrarResultado(@ModelAttribute("resultado") ResultadoDto resultadoDto, Model model) {
+    public String registrarResultado(@ModelAttribute("resultado") ResultadoDTO resultadoDto, Model model) {
         try {
             resultadoServicio.registrarResultado(resultadoDto);
             model.addAttribute("mensaje", "Resultado registrado exitosamente.");

@@ -3,29 +3,26 @@ package com.proyecto.torneo.entidades;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-
 import java.io.Serializable;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Entity(name = "campeonato")
+@Entity
 @Table(name = "campeonatos")
 public class Campeonato implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_campeonatos")
-    @SequenceGenerator(name = "seq_campeonatos", sequenceName = "seq_campeonatos", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "equipos", nullable = false)
-    private List<Long> equipos;
+    @OneToMany(mappedBy = "campeonato", cascade = CascadeType.ALL)
+    private List<Equipo> equipos;
 
-    @Column(name = "partidos", nullable = false)
-    private List<Long> partidos;
+    @OneToMany(mappedBy = "campeonato", cascade = CascadeType.ALL)
+    private List<Partido> partidos;
 
-    @Column(name = "clasificaciones", nullable = false)
-    private List<Long> clasificaciones;
+    @OneToMany(mappedBy = "campeonato", cascade = CascadeType.ALL)
+    private List<Clasificacion> clasificaciones;
 }
