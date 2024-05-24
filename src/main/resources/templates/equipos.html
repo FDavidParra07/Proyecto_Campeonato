@@ -14,18 +14,45 @@
         <th>Uniforme</th>
         <th>Dirección</th>
         <th>Estadio</th>
+        <th>Acciones</th>
     </tr>
     </thead>
     <tbody>
+    <tr th:if="${equipos.isEmpty()}">
+        <td colspan="6">No hay equipos registrados.</td>
+    </tr>
     <tr th:each="equipo : ${equipos}">
         <td th:text="${equipo.nombre}"></td>
         <td th:text="${equipo.tecnico}"></td>
         <td th:text="${equipo.uniforme}"></td>
         <td th:text="${equipo.direccion}"></td>
         <td th:text="${equipo.estadio.nombre}"></td>
+        <td>
+            <button class="eliminar-equipo" th:attr="data-id=${equipo.id}">Eliminar</button>
+        </td>
     </tr>
     </tbody>
 </table>
+<a href="/equipos/create">Crear Equipo</a>
+<br>
 <a href="/">Volver al inicio</a>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.eliminar-equipo').on('click', function() {
+            var id = $(this).data('id');
+            if (confirm('¿Estás seguro de que deseas eliminar este equipo?')) {
+                $.ajax({
+                    url: '/equipos/delete/' + id,
+                    type: 'DELETE',
+                    success: function(result) {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+    });
+</script>
 </body>
 </html>

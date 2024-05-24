@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Crear Equipo</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<h1>Crear Equipo</h1>
+<form th:action="@{/equipos/create}" method="post" th:object="${equipo}" onsubmit="return validarFormulario()">
+    <label for="nombre">Nombre:</label><br>
+    <input type="text" id="nombre" name="nombre" th:field="*{nombre}" required><br>
+
+    <label for="tecnico">Técnico:</label><br>
+    <input type="text" id="tecnico" name="tecnico" th:field="*{tecnico}" required><br>
+
+    <label for="uniforme">Uniforme:</label><br>
+    <input type="text" id="uniforme" name="uniforme" th:field="*{uniforme}" required><br>
+
+    <label for="direccion">Dirección:</label><br>
+    <input type="text" id="direccion" name="direccion" th:field="*{direccion}" required><br>
+
+    <label for="estadio">Estadio:</label><br>
+    <div class="select-container">
+        <select id="estadio" name="estadioId" th:field="*{estadioId}" required style="width: 300px; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc";>
+            <option value="" disabled selected hidden>Selecciona un estadio</option>
+            <option th:each="estadio : ${estadios}" th:value="${estadio.id}" th:text="${estadio.nombre}"></option>
+        </select>
+    </div><br>
+
+    <label for="campeonato">Campeonato:</label><br>
+    <div class="select-container">
+        <select id="campeonato" name="campeonatoId" th:field="*{campeonatoId}" required style="width: 300px; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc";>
+            <option value="" disabled selected hidden>Selecciona un campeonato</option>
+            <option th:each="campeonato : ${campeonatos}" th:value="${campeonato.id}" th:text="${campeonato.nombre}"></option>
+        </select>
+    </div><br>
+
+    <button type="submit">Crear</button>
+</form>
+
+<script th:inline="javascript">
+    function validarFormulario() {
+        var nombre = document.getElementById("nombre").value;
+        var tecnico = document.getElementById("tecnico").value;
+        var uniforme = document.getElementById("uniforme").value;
+        var direccion = document.getElementById("direccion").value;
+        var estadio = document.getElementById("estadio").value;
+        var campeonato = document.getElementById("campeonato").value;
+
+        if (nombre === '' || tecnico === '' || uniforme === '' || direccion === '' || estadio === '' || campeonato === '') {
+            alert("Por favor, complete todos los campos.");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+<br>
+<a href="/">Volver al inicio</a>
+</body>
+</html>
