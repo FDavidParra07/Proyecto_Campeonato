@@ -9,13 +9,11 @@
 <table>
     <thead>
     <tr>
-        <th>ID</th>
         <th>Nombre</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="campeonato : ${campeonatos}">
-        <td th:text="${campeonato.id}"></td>
         <td th:text="${campeonato.nombre}"></td>
     </tr>
     </tbody>

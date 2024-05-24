@@ -6,26 +6,48 @@
 </head>
 <body>
 <h1>Lista de Estadios</h1>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Capacidad</th>
-        <th>Ubicación</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="estadio : ${estadios}">
-        <td th:text="${estadio.id}"></td>
-        <td th:text="${estadio.nombre}"></td>
-        <td th:text="${estadio.capacidad}"></td>
-        <td th:text="${estadio.ubicacion}"></td>
-    </tr>
-    </tbody>
-</table>
+<div id="tabla-estadios">
+    <table>
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Capacidad</th>
+            <th>Ubicación</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="estadio : ${estadios}" th:id="'fila-' + ${estadio.id}">
+            <td th:text="${estadio.nombre}"></td>
+            <td th:text="${estadio.capacidad}"></td>
+            <td th:text="${estadio.ubicacion}"></td>
+            <td>
+                <button class="eliminar-estadio" th:attr="data-id=${estadio.id}">Eliminar</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 <a href="/estadios/create">Crear Estadio</a>
 <br>
 <a href="/">Volver al inicio</a>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.eliminar-estadio').on('click', function() {
+            var id = $(this).data('id');
+            if (confirm('¿Estás seguro de que deseas eliminar este estadio?')) {
+                $.ajax({
+                    url: '/estadios/delete/' + id,
+                    type: 'DELETE',
+                    success: function(result) {
+                        window.location.href = '/estadios';
+                    }
+                });
+            }
+        });
+    });
+</script>
 </body>
 </html>

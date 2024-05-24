@@ -9,7 +9,6 @@
 <table>
     <thead>
     <tr>
-        <th>ID</th>
         <th>Goles Local</th>
         <th>Goles Visitante</th>
         <th>Partido</th>
@@ -17,7 +16,6 @@
     </thead>
     <tbody>
     <tr th:each="resultado : ${resultados}">
-        <td th:text="${resultado.id}"></td>
         <td th:text="${resultado.golesLocal}"></td>
         <td th:text="${resultado.golesVisitante}"></td>
         <td th:text="${resultado.partido.local.nombre} + ' vs ' + ${resultado.partido.visitante.nombre}"></td>

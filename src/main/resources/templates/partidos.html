@@ -9,7 +9,6 @@
 <table>
     <thead>
     <tr>
-        <th>ID</th>
         <th>Equipo Local</th>
         <th>Equipo Visitante</th>
         <th>Estadio</th>
@@ -18,7 +17,6 @@
     </thead>
     <tbody>
     <tr th:each="partido : ${partidos}">
-        <td th:text="${partido.id}"></td>
         <td th:text="${partido.local.nombre}"></td>
         <td th:text="${partido.visitante.nombre}"></td>
         <td th:text="${partido.estadio.nombre}"></td>

@@ -4,6 +4,7 @@ import com.proyecto.torneo.dto.EstadioDTO;
 import com.proyecto.torneo.entidades.Estadio;
 import com.proyecto.torneo.servicios.EstadioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,5 +30,11 @@ public class EstadioController {
         estadio.setUbicacion(estadioDTO.getUbicacion());
         estadioService.save(estadio);
         return "redirect:/estadios";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> eliminarEstadio(@PathVariable Long id) {
+        estadioService.deleteById(id);
+        return ResponseEntity.ok().body("Estadio eliminado correctamente");
     }
 }
