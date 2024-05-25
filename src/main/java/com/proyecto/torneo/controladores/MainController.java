@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -60,7 +61,9 @@ public class MainController {
 
     @GetMapping("/clasificaciones")
     public String clasificaciones(Model model) {
-        model.addAttribute("clasificaciones", clasificacionService.findAll());
+        List<Clasificacion> clasificacionesOrdenadas = clasificacionService.findAll();
+        clasificacionesOrdenadas.sort(Comparator.comparingInt(Clasificacion::getPuntos).reversed());
+        model.addAttribute("clasificaciones", clasificacionesOrdenadas);
         model.addAttribute("campeonatos", campeonatoService.findAll());
         model.addAttribute("filtroForm", new FiltroForm());
         return "clasificaciones";
