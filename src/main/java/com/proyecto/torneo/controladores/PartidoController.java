@@ -4,27 +4,15 @@ import com.proyecto.torneo.dto.PartidoDTO;
 import com.proyecto.torneo.entidades.Partido;
 import com.proyecto.torneo.servicios.PartidoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-@RestController
-@RequestMapping("/api/partidos")
+@Controller
+@RequestMapping("/partidos")
 public class PartidoController {
 
     @Autowired
     private PartidoService partidoService;
-
-    @GetMapping
-    public List<PartidoDTO> findAll() {
-        return partidoService.findAll().stream()
-                .map(partido -> {
-                    PartidoDTO dto = new PartidoDTO();
-                    return dto;
-                })
-                .collect(Collectors.toList());
-    }
 
     @GetMapping("/{id}")
     public PartidoDTO findById(@PathVariable Long id) {
@@ -42,7 +30,7 @@ public class PartidoController {
         return dto;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteById(@PathVariable Long id) {
         partidoService.deleteById(id);
     }

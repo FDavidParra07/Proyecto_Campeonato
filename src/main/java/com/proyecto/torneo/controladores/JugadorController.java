@@ -4,13 +4,14 @@ import com.proyecto.torneo.dto.JugadorDTO;
 import com.proyecto.torneo.entidades.Jugador;
 import com.proyecto.torneo.servicios.JugadorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
-@RequestMapping("/api/jugadores")
+@Controller
+@RequestMapping("/jugadores")
 public class JugadorController {
 
     @Autowired
@@ -42,7 +43,7 @@ public class JugadorController {
         return dto;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteById(@PathVariable Long id) {
         jugadorService.deleteById(id);
     }

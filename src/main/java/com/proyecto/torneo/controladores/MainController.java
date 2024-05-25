@@ -66,16 +66,6 @@ public class MainController {
         return "clasificaciones";
     }
 
-    @PostMapping("/clasificaciones/filtrar")
-    public String filtrarClasificaciones(@ModelAttribute("filtroForm") FiltroForm filtroForm, Model model) {
-        Long campeonatoId = filtroForm.getCampeonatoId();
-        List<Clasificacion> clasificacionesFiltradas = clasificacionService.findByCampeonatoId(campeonatoId);
-        model.addAttribute("clasificaciones", clasificacionesFiltradas);
-        model.addAttribute("campeonatos", campeonatoService.findAll()); // Agregar campeonatos nuevamente
-        return "clasificaciones";
-    }
-
-
     @GetMapping("/estadios")
     public String estadios(Model model) {
         model.addAttribute("estadios", estadioService.findAll());

@@ -1,30 +1,26 @@
 package com.proyecto.torneo.controladores;
 
 import com.proyecto.torneo.dto.ClasificacionDTO;
+import com.proyecto.torneo.dto.FiltroForm;
 import com.proyecto.torneo.entidades.Clasificacion;
+import com.proyecto.torneo.servicios.CampeonatoService;
 import com.proyecto.torneo.servicios.ClasificacionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-@RestController
-@RequestMapping("/api/clasificaciones")
+@Controller
+@RequestMapping("/clasificaciones")
 public class ClasificacionController {
 
     @Autowired
     private ClasificacionService clasificacionService;
 
-    @GetMapping
-    public List<ClasificacionDTO> findAll() {
-        return clasificacionService.findAll().stream()
-                .map(clasificacion -> {
-                    ClasificacionDTO dto = new ClasificacionDTO();
-                    return dto;
-                })
-                .collect(Collectors.toList());
-    }
+    @Autowired
+    private CampeonatoService campeonatoService;
 
     @GetMapping("/{id}")
     public ClasificacionDTO findById(@PathVariable Long id) {
@@ -42,8 +38,17 @@ public class ClasificacionController {
         return dto;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteById(@PathVariable Long id) {
         clasificacionService.deleteById(id);
+    }
+
+    @PostMapping("/filtrar")
+    public String filtrarClasificaciones(@ModelAttribute("filtroForm") FiltroForm filtroForm, Model model) {
+        Long campeonatoId = filtroForm.getCampeonatoId();
+        List<Clasificacion> clasificacionesFiltradas = clasificacionService.findByCampeonatoId(campeonatoId);
+        model.addAttribute("clasificaciones", clasificacionesFiltradas);
+        model.addAttribute("campeonatos", campeonatoService.findAll()); // Agregar campeonatos nuevamente
+        return "clasificaciones";
     }
 }

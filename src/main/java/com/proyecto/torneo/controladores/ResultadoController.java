@@ -2,29 +2,21 @@ package com.proyecto.torneo.controladores;
 
 import com.proyecto.torneo.dto.ResultadoDTO;
 import com.proyecto.torneo.entidades.Resultado;
+import com.proyecto.torneo.servicios.CampeonatoService;
 import com.proyecto.torneo.servicios.ResultadoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-@RestController
-@RequestMapping("/api/resultados")
+@Controller
+@RequestMapping("/resultados")
 public class ResultadoController {
 
     @Autowired
     private ResultadoService resultadoService;
 
-    @GetMapping
-    public List<ResultadoDTO> findAll() {
-        return resultadoService.findAll().stream()
-                .map(resultado -> {
-                    ResultadoDTO dto = new ResultadoDTO();
-                    return dto;
-                })
-                .collect(Collectors.toList());
-    }
+    @Autowired
+    private CampeonatoService campeonatoService;
 
     @GetMapping("/{id}")
     public ResultadoDTO findById(@PathVariable Long id) {
@@ -42,7 +34,7 @@ public class ResultadoController {
         return dto;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteById(@PathVariable Long id) {
         resultadoService.deleteById(id);
     }

@@ -4,13 +4,14 @@ import com.proyecto.torneo.dto.GolDTO;
 import com.proyecto.torneo.entidades.Gol;
 import com.proyecto.torneo.servicios.GolService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
-@RequestMapping("/api/goles")
+@Controller
+@RequestMapping("/goles")
 public class GolController {
 
     @Autowired
@@ -42,7 +43,7 @@ public class GolController {
         return dto;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteById(@PathVariable Long id) {
         golService.deleteById(id);
     }
