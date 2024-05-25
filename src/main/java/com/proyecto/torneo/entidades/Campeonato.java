@@ -19,10 +19,10 @@ public class Campeonato implements Serializable {
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @OneToMany(mappedBy = "campeonato", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "equipo", cascade = CascadeType.ALL)
     private List<Equipo> equipos;
 
-    @OneToMany(mappedBy = "campeonato", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "partidos", cascade = CascadeType.ALL)
     private List<Partido> partidos;
 
     @OneToMany(mappedBy = "campeonato", cascade = CascadeType.ALL)
