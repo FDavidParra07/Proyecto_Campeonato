@@ -17,6 +17,9 @@
         </tr>
         </thead>
         <tbody>
+        <tr th:if="${estadios.isEmpty()}">
+            <td colspan="6">No hay estadios registrados.</td>
+        </tr>
         <tr th:each="estadio : ${estadios}" th:id="'fila-' + ${estadio.id}">
             <td th:text="${estadio.nombre}"></td>
             <td th:text="${estadio.capacidad}"></td>

@@ -13,6 +13,9 @@
     </tr>
     </thead>
     <tbody>
+    <tr th:if="${campeonatos.isEmpty()}">
+        <td colspan="6">No hay campeonatos registrados.</td>
+    </tr>
     <tr th:each="campeonato : ${campeonatos}">
         <td th:text="${campeonato.nombre}"></td>
     </tr>

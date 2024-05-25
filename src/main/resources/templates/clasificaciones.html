@@ -21,6 +21,9 @@
     </tr>
     </thead>
     <tbody>
+    <tr th:if="${clasificaciones.isEmpty()}">
+        <td colspan="6">No hay clasificaciones registradas.</td>
+    </tr>
     <tr th:each="clasificacion : ${clasificaciones}">
         <td th:text="${clasificacion.equipo.nombre}"></td>
         <td th:text="${clasificacion.puntos}"></td>
