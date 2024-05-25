@@ -48,7 +48,11 @@ public class ClasificacionController {
     public String filtrarClasificaciones(@ModelAttribute("filtroForm") FiltroForm filtroForm, Model model) {
         Long campeonatoId = filtroForm.getCampeonatoId();
         List<Clasificacion> clasificacionesFiltradas = clasificacionService.findByCampeonatoId(campeonatoId);
-        clasificacionesFiltradas.sort(Comparator.comparingInt(Clasificacion::getPuntos).reversed());
+        clasificacionesFiltradas.sort(Comparator
+                .comparingInt(Clasificacion::getPuntos)
+                .thenComparingInt(Clasificacion::getGolesAFavor)
+                .thenComparingInt(Clasificacion::getPartidosGanados)
+                .reversed());
         model.addAttribute("clasificaciones", clasificacionesFiltradas);
         model.addAttribute("campeonatos", campeonatoService.findAll()); // Agregar campeonatos nuevamente
         return "clasificaciones";

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Crear Partido</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<h1>Crear Partido</h1>
+<form th:action="@{/partidos/create}" method="post" th:object="${partido}" onsubmit="return validarFormulario()">
+    <label for="local">Equipo Local:</label><br>
+    <div class="select-container">
+        <select id="local" name="localId" th:field="*{localId}" required style="width: 300px; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc">
+            <option value="" disabled selected hidden>Selecciona un equipo local</option>
+            <option th:each="equipo : ${equipos}" th:value="${equipo.id}" th:text="${equipo.nombre}"></option>
+        </select>
+    </div><br>
+
+    <label for="visitante">Equipo Visitante:</label><br>
+    <div class="select-container">
+        <select id="visitante" name="visitanteId" th:field="*{visitanteId}" required style="width: 300px; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc">
+            <option value="" disabled selected hidden>Selecciona un equipo visitante</option>
+            <option th:each="equipo : ${equipos}" th:value="${equipo.id}" th:text="${equipo.nombre}"></option>
+        </select>
+    </div><br>
+
+    <label for="estadio">Estadio:</label><br>
+    <div class="select-container">
+        <select id="estadio" name="estadioId" th:field="*{estadioId}" required style="width: 300px; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc">
+            <option value="" disabled selected hidden>Selecciona un estadio</option>
+            <option th:each="estadio : ${estadios}" th:value="${estadio.id}" th:text="${estadio.nombre}"></option>
+        </select>
+    </div><br>
+
+    <label for="fecha">Fecha:</label><br>
+    <input type="datetime-local" id="fecha" name="fecha" required><br><br>
+
+    <label for="campeonato">Campeonato:</label><br>
+    <div class="select-container">
+        <select id="campeonato" name="campeonatoId" th:field="*{campeonatoId}" required style="width: 300px; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc">
+            <option value="" disabled selected hidden>Selecciona un campeonato</option>
+            <option th:each="campeonato : ${campeonatos}" th:value="${campeonato.id}" th:text="${campeonato.nombre}"></option>
+        </select>
+    </div><br>
+
+    <label for="golesLocal">Goles Equipo Local:</label><br>
+    <input type="number" id="golesLocal" name="resultado.golesLocal" required><br>
+
+    <label for="golesVisitante">Goles Equipo Visitante:</label><br>
+    <input type="number" id="golesVisitante" name="resultado.golesVisitante" required><br>
+
+    <button type="submit">Crear</button>
+</form>
+
+<script th:inline="javascript">
+    function validarFormulario() {
+        var local = document.getElementById("local").value;
+        var visitante = document.getElementById("visitante").value;
+        var estadio = document.getElementById("estadio").value;
+        var fecha = document.getElementById("fecha").value;
+        var golesLocal = document.getElementById("golesLocal").value;
+        var golesVisitante = document.getElementById("golesVisitante").value;
+
+        if (local === '' || visitante === '' || estadio === '' || fecha === '' || golesLocal === '' || golesVisitante === '') {
+            alert("Por favor, complete todos los campos.");
+            return false;
+        }
+
+        if (local === visitante) {
+            alert("El equipo local y el equipo visitante no pueden ser iguales.");
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
+<br>
+<a href="/partidos">Volver</a>
+</body>
+</html>

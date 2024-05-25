@@ -6,6 +6,16 @@
 </head>
 <body>
 <h1>Lista de Partidos</h1>
+<form action="#" th:action="@{/partidos/filtrar}" th:object="${filtroForm}" method="post">
+    <label for="campeonatoId">Selecciona un campeonato:</label>
+    <select id="campeonatoId" name="campeonatoId" th:field="*{campeonatoId}"  required style="width: 300px; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc">
+        <option value="" disabled selected hidden>Selecciona un campeonato</option>
+        <option th:each="campeonato : ${campeonatos}" th:value="${campeonato.id}" th:text="${campeonato.nombre}"></option>
+    </select>
+    <br>
+    <br>
+    <button type="submit">Filtrar</button>
+</form>
 <table>
     <thead>
     <tr>
@@ -13,6 +23,7 @@
         <th>Equipo Visitante</th>
         <th>Estadio</th>
         <th>Resultado</th>
+        <th>Fecha</th>
     </tr>
     </thead>
     <tbody>
@@ -24,9 +35,12 @@
         <td th:text="${partido.visitante.nombre}"></td>
         <td th:text="${partido.estadio.nombre}"></td>
         <td th:text="${partido.resultado.golesLocal} + ' - ' + ${partido.resultado.golesVisitante}"></td>
+        <td th:text="${partido.fecha}"></td>
     </tr>
     </tbody>
 </table>
+<a href="/partidos/create">Crear Partido</a>
+<br>
 <a href="/">Volver al inicio</a>
 </body>
 </html>

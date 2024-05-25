@@ -33,4 +33,8 @@ public class ClasificacionService {
     public List<Clasificacion> findByCampeonatoId(Long campeonatoId) {
         return clasificacionRepository.findByCampeonatoId(campeonatoId);
     }
+
+    public Clasificacion findByEquipoIdAndCampeonatoId(Long equipoId, Long campeonatoId) {
+        return clasificacionRepository.findByEquipoIdAndCampeonatoId(equipoId, campeonatoId);
+    }
 }

@@ -50,8 +50,11 @@ public class MainController {
     @GetMapping("/partidos")
     public String partidos(Model model) {
         model.addAttribute("partidos", partidoService.findAll());
+        model.addAttribute("campeonatos", campeonatoService.findAll());
+        model.addAttribute("filtroForm", new FiltroForm());
         return "partidos";
     }
+
 
     @GetMapping("/resultados")
     public String resultados(Model model) {
@@ -62,7 +65,11 @@ public class MainController {
     @GetMapping("/clasificaciones")
     public String clasificaciones(Model model) {
         List<Clasificacion> clasificacionesOrdenadas = clasificacionService.findAll();
-        clasificacionesOrdenadas.sort(Comparator.comparingInt(Clasificacion::getPuntos).reversed());
+        clasificacionesOrdenadas.sort(Comparator
+                .comparingInt(Clasificacion::getPuntos)
+                .thenComparingInt(Clasificacion::getGolesAFavor)
+                .thenComparingInt(Clasificacion::getPartidosGanados)
+                .reversed());
         model.addAttribute("clasificaciones", clasificacionesOrdenadas);
         model.addAttribute("campeonatos", campeonatoService.findAll());
         model.addAttribute("filtroForm", new FiltroForm());

@@ -1,5 +1,6 @@
 package com.proyecto.torneo.servicios;
 
+import com.proyecto.torneo.entidades.Equipo;
 import com.proyecto.torneo.entidades.Partido;
 import com.proyecto.torneo.repositorios.PartidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,9 @@ public class PartidoService {
 
     public void deleteById(Long id) {
         partidoRepository.deleteById(id);
+    }
+
+    public List<Partido> findByCampeonatoId(Long campeonatoId) {
+        return partidoRepository.findByCampeonatoId(campeonatoId);
     }
 }

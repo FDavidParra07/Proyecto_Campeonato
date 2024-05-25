@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface ClasificacionRepository extends JpaRepository<Clasificacion, Long> {
     List<Clasificacion> findByCampeonatoId(Long campeonatoId);
+    Clasificacion findByEquipoIdAndCampeonatoId(Long equipoId, Long campeonatoId);
 }
