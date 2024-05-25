@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -26,6 +27,9 @@ public class Equipo implements Serializable {
 
     @Column(name = "direccion", nullable = true)
     private String direccion;
+
+    @OneToMany(mappedBy = "equipo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Clasificacion> clasificaciones;
 
     @ManyToOne
     @JoinColumn(name = "estadio_id", nullable = true)

@@ -5,6 +5,7 @@ import com.proyecto.torneo.repositorios.CampeonatoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +24,11 @@ public class CampeonatoService {
     }
 
     public Campeonato save(Campeonato campeonato) {
+        if (campeonato.getId() == null) {
+            campeonato.setEquipos(new ArrayList<>());
+            campeonato.setPartidos(new ArrayList<>());
+            campeonato.setClasificaciones(new ArrayList<>());
+        }
         return campeonatoRepository.save(campeonato);
     }
 

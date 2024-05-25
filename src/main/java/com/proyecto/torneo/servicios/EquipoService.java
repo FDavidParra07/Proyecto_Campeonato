@@ -29,4 +29,8 @@ public class EquipoService {
     public void deleteById(Long id) {
         equipoRepository.deleteById(id);
     }
+
+    public List<Equipo> findByCampeonatoId(Long campeonatoId) {
+        return equipoRepository.findByCampeonatoId(campeonatoId);
+    }
 }
