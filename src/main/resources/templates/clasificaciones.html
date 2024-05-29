@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Clasificaciones</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<h1>Tabla de Clasificación</h1>
+
+<form action="#" th:action="@{/clasificaciones/filtrar}" th:object="${filtroForm}" method="post">
+    <label for="campeonatoId">Selecciona un campeonato:</label>
+    <select id="campeonatoId" name="campeonatoId" th:field="*{campeonatoId}" required style="width: 300px; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc">
+        <option value="" disabled selected hidden>Selecciona un campeonato</option>
+        <option th:each="campeonato : ${campeonatos}" th:value="${campeonato.id}" th:text="${campeonato.nombre}"></option>
+    </select>
+    <br>
+    <br>
+    <button type="submit">Filtrar</button>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>Equipo</th>
+        <th>Puntos</th>
+        <th>GF</th>
+        <th>GC</th>
+        <th>DF</th>
+        <th>PJ</th>
+        <th>PG</th>
+        <th>PE</th>
+        <th>PP</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${clasificaciones.isEmpty()}">
+        <td colspan="6">No hay clasificaciones registradas.</td>
+    </tr>
+    <tr th:each="clasificacion : ${clasificaciones}">
+        <td th:text="${clasificacion.equipo.nombre}"></td>
+        <td th:text="${clasificacion.puntos}"></td>
+        <td th:text="${clasificacion.golesAFavor}"></td>
+        <td th:text="${clasificacion.golesEnContra}"></td>
+        <td th:text="${clasificacion.diferenciaDeGoles}"></td>
+        <td th:text="${clasificacion.partidosJugados}"></td>
+        <td th:text="${clasificacion.partidosGanados}"></td>
+        <td th:text="${clasificacion.partidosEmpatados}"></td>
+        <td th:text="${clasificacion.partidosPerdidos}"></td>
+    </tr>
+    </tbody>
+</table>
+<a href="/">Volver al inicio</a>
+</body>
+</html>

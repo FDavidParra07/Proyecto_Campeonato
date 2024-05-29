@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Equipos</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<h1>Lista de Equipos</h1>
+
+<form action="#" th:action="@{/equipos/filtrar}" th:object="${filtroForm}" method="post">
+    <label for="campeonatoId">Selecciona un campeonato:</label>
+    <select id="campeonatoId" name="campeonatoId" th:field="*{campeonatoId}"  required style="width: 300px; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc">
+        <option value="" disabled selected hidden>Selecciona un campeonato</option>
+        <option th:each="campeonato : ${campeonatos}" th:value="${campeonato.id}" th:text="${campeonato.nombre}"></option>
+    </select>
+    <br>
+    <br>
+    <button type="submit">Filtrar</button>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>Nombre</th>
+        <th>Técnico</th>
+        <th>Uniforme</th>
+        <th>Dirección</th>
+        <th>Estadio</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${equipos.isEmpty()}">
+        <td colspan="6">No hay equipos registrados.</td>
+    </tr>
+    <tr th:each="equipo : ${equipos}">
+        <td th:text="${equipo.nombre}"></td>
+        <td th:text="${equipo.tecnico}"></td>
+        <td th:text="${equipo.uniforme}"></td>
+        <td th:text="${equipo.direccion}"></td>
+        <td th:text="${equipo.estadio.nombre}"></td>
+        <td>
+            <button class="eliminar-equipo" th:attr="data-id=${equipo.id}">Eliminar</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a href="/equipos/create">Crear Equipo</a>
+<br>
+<a href="/">Volver al inicio</a>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.eliminar-equipo').on('click', function() {
+            var id = $(this).data('id');
+            if (confirm('¿Estás seguro de que deseas eliminar este equipo?')) {
+                $.ajax({
+                    url: '/equipos/delete/' + id,
+                    type: 'DELETE',
+                    success: function(result) {
+                        alert('Equipo eliminado correctamente');
+                        window.location.reload();
+                    },
+                    error: function(err) {
+                        alert('Error al eliminar el equipo.');
+                    }
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

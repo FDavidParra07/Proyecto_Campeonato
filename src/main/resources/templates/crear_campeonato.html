@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Crear Campeonato</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<h1>Crear Campeonato</h1>
+<form th:action="@{/campeonatos/create}" method="post" th:object="${campeonato}" onsubmit="return validarFormulario()">
+    <label for="nombre">Nombre:</label><br>
+    <input type="text" id="nombre" name="nombre" th:field="*{nombre}" required><br>
+
+    <button type="submit">Crear</button>
+</form>
+
+<script th:inline="javascript">
+    function validarFormulario() {
+        var nombre = document.getElementById("nombre").value;
+
+        if (nombre === '') {
+            alert("Por favor, complete todos los campos.");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+<br>
+<a href="/campeonatos">Volver</a>
+</body>
+</html>

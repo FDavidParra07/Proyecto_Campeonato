@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Campeonatos</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<h1>Lista de Campeonatos</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Nombre</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${campeonatos.isEmpty()}">
+        <td colspan="6">No hay campeonatos registrados.</td>
+    </tr>
+    <tr th:each="campeonato : ${campeonatos}">
+        <td th:text="${campeonato.nombre}"></td>
+        <td>
+            <button class="eliminar-campeonato" th:attr="data-id=${campeonato.id}">Eliminar</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a href="/campeonatos/create">Crear Campeonato</a>
+<br>
+<a href="/">Volver al inicio</a>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.eliminar-campeonato').on('click', function() {
+            var id = $(this).data('id');
+            if (confirm('¿Estás seguro de que deseas eliminar este campeonato?')) {
+                $.ajax({
+                    url: '/campeonatos/delete/' + id,
+                    type: 'DELETE',
+                    success: function(result) {
+                        alert('Campeonato eliminado correctamente');
+                        window.location.reload();
+                    },
+                    error: function(err) {
+                        alert('Error al eliminar el campeonato');
+                    }
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>
