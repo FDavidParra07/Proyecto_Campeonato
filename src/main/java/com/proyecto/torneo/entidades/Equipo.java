@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@Entity(name = "equipo")
+@Entity
 @Table(name = "equipos")
 public class Equipo implements Serializable {
     @Id
